@@ -1,8 +1,12 @@
 package lists
 
 import (
+	"fmt"
 	"iter"
+	"strings"
 )
+
+var _ List[int] = (*LinkedList[int])(nil)
 
 type node[T any] struct {
 	data T
@@ -15,7 +19,7 @@ type LinkedList[T any] struct {
 	tail *node[T]
 }
 
-func NewLinkedList[T any]() List[T] {
+func NewLinkedList[T any]() *LinkedList[T] {
 	return &LinkedList[T]{
 		size: 0,
 		head: nil,
@@ -100,6 +104,16 @@ func (l *LinkedList[T]) Remove(index int) (res T, err error) {
 
 func (l *LinkedList[T]) Size() int {
 	return l.size
+}
+
+func (l *LinkedList[T]) String() string {
+	sb := strings.Builder{}
+
+	for _, e := range l.Items() {
+		sb.WriteString(fmt.Sprintf("%v", e))
+	}
+
+	return sb.String()
 }
 
 func (l *LinkedList[T]) Items() iter.Seq2[int, T] {

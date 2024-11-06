@@ -20,4 +20,5 @@ type List[T any] interface {
 	Size() int
 	// Iterator function
 	Items() iter.Seq2[int, T]
+	String() string
 }
